@@ -23,10 +23,6 @@ jobs:
         run: |
           cmd /c show.bat
 
-      - name: Time Counter
-        id: time_counter
-        run: python time.py
-
       - name: Capture Output and Save to File
         run: |
           echo "### Output from Downloading & Installing Essentials" > workflow_output.txt
@@ -37,6 +33,10 @@ jobs:
           echo "" >> workflow_output.txt
           echo "### Output from Time Counter" >> workflow_output.txt
           echo "${{ steps.time_counter.outputs.result }}" >> workflow_output.txt
+
+      - name: Time Counter
+        id: time_counter
+        run: python time.py
 
       - name: Commit and Push Results
         run: |
