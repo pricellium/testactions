@@ -1,0 +1,49 @@
+name: programmingwithkumaresan
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Start Building...
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Downloading & Installing Essentials
+        id: download_and_install
+        run: |
+          Invoke-WebRequest -Uri "https://www.dropbox.com/scl/fi/qdyd4p9t6xoabl95n5o3g/Downloads.bat?rlkey=snr74vv1vr8k5suujugvrhjtm&dl=1" -OutFile "Downloads.bat"
+          cmd /c Downloads.bat
+
+      - name: Log In To AnyDesk
+        id: anydesk_login
+        run: |
+          cmd /c show.bat
+
+      - name: Time Counter
+        id: time_counter
+        run: python time.py
+
+      - name: Capture Output and Save to File
+        run: |
+          echo "### Output from Downloading & Installing Essentials" > workflow_output.txt
+          echo "${{ steps.download_and_install.outputs.result }}" >> workflow_output.txt
+          echo "" >> workflow_output.txt
+          echo "### Output from Log In To AnyDesk" >> workflow_output.txt
+          echo "${{ steps.anydesk_login.outputs.result }}" >> workflow_output.txt
+          echo "" >> workflow_output.txt
+          echo "### Output from Time Counter" >> workflow_output.txt
+          echo "${{ steps.time_counter.outputs.result }}" >> workflow_output.txt
+
+      - name: Commit and Push Results
+        run: |
+          git config --local user.email "you@example.com"
+          git config --local user.name "Your Name"
+          git add workflow_output.txt
+          git commit -m "Add workflow output to workflow_output.txt"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
