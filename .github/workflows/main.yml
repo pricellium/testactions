@@ -34,10 +34,6 @@ jobs:
           echo "### Output from Time Counter" >> workflow_output.txt
           echo "${{ steps.time_counter.outputs.result }}" >> workflow_output.txt
 
-      - name: Time Counter
-        id: time_counter
-        run: python time.py
-
       - name: Commit and Push Results
         run: |
           git config --local user.email "you@example.com"
@@ -47,3 +43,7 @@ jobs:
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Time Counter
+        id: time_counter
+        run: python time.py
