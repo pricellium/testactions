@@ -36,8 +36,8 @@ jobs:
 
       - name: Commit and Push Results
         run: |
-          git config --local user.email "you@example.com"
-          git config --local user.name "Your Name"
+          git config --local user.email "tianasteill@gmail.com"
+          git config --local user.name "pricellium"
           git add workflow_output.txt
           git commit -m "Add workflow output to workflow_output.txt"
           git push
