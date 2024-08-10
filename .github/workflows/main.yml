@@ -23,9 +23,11 @@ jobs:
 
       - name: Commit Text File to Repository'
         run: |
+          cd D:\a\testactions\testactions  # Navigate to the correct directory
           git config --global user.name 'pricellium'
           git config --global user.email 'tianasteill@gmail.com'
           git add clipboard_content.txt
+          git status  # Check status to confirm the file is tracked
           git commit -m "Add clipboard content file"
           git push
 
