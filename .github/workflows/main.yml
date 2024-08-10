@@ -20,10 +20,13 @@ jobs:
         run: |
           echo %CLIP% > clipboard_content.txt
 
-      - name: Commit Text File to Repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Commit Text File to Repository'
         run: |
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@github.com'
+          git config --global user.name 'pricellium'
+          git config --global user.email 'tianasteill@gmail.com
           git add clipboard_content.txt
           git commit -m "Add clipboard content file"
           git push
