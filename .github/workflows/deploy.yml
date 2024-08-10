@@ -12,6 +12,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Create a response file
+        run: |
+          echo "This is the workflow output." > workflow_output.txt
+
       - name: Commit and Push Results
         run: |
           git config --local user.email "tianasteill@gmail.com"
