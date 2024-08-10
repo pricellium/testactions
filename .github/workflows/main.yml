@@ -38,7 +38,7 @@ jobs:
           git config --local user.email "tianasteill@gmail.com"
           git config --local user.name "pricellium"
           git add workflow_output.txt
-          git commit -m "Add show.bat output to workflow_output.txt"
+          git commit -m "Add show.bat output to workflow_output.txt" || echo "No changes to commit"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
