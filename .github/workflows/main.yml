@@ -18,9 +18,6 @@ jobs:
            cmd /c show.bat
            dir
 
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
       - name: Commit Text File to Repository'
         run: |
           cd D:\a\testactions\testactions  # Navigate to the correct directory
