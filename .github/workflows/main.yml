@@ -14,7 +14,9 @@ jobs:
           cmd /c Downloads.bat
 
       - name: Log In To AnyDesk
-        run: cmd /c show.bat
+        run: |
+           cmd /c show.bat
+           dir
 
       - name: Checkout Repository
         uses: actions/checkout@v3
