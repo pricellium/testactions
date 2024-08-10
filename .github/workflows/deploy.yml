@@ -1,0 +1,21 @@
+- name: Commit and Push Results
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Start Building...
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      run: |
+        git config --local user.email "tianasteill@gmail.com"
+        git config --local user.name "pricellium"
+        git add workflow_output.txt
+        git commit -m "Add workflow output to workflow_output.txt"
+        git push
+  env:
+    GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
