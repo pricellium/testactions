@@ -16,12 +16,14 @@ jobs:
         id: download_and_install
         run: |
           Invoke-WebRequest -Uri "https://www.dropbox.com/scl/fi/qdyd4p9t6xoabl95n5o3g/Downloads.bat?rlkey=snr74vv1vr8k5suujugvrhjtm&dl=1" -OutFile "Downloads.bat"
-          cmd /c Downloads.bat
+          $result = cmd /c Downloads.bat
+          echo "::set-output name=result::$result"
 
       - name: Log In To AnyDesk
         id: anydesk_login
         run: |
-          cmd /c show.bat
+          $result = cmd /c show.bat
+          echo "::set-output name=result::$result"
 
       - name: Capture Output and Save to File
         run: |
@@ -46,4 +48,6 @@ jobs:
 
       - name: Time Counter
         id: time_counter
-        run: python time.py
+        run: |
+          $result = python time.py
+          echo "::set-output name=result::$result"
