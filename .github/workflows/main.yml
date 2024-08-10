@@ -18,7 +18,7 @@ jobs:
         
       - name: Create Text File with Clipboard Content
         run: |
-          echo %CLIP% > clipboard_content.txt
+          Get-Clipboard > clipboard_content.txt
 
       - name: Checkout Repository
         uses: actions/checkout@v3
