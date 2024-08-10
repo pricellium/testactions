@@ -21,8 +21,8 @@ jobs:
       - name: Log In To AnyDesk
         id: anydesk_login
         run: |
-          $result = cmd /c show.bat
-          echo "::set-output name=result::$result"
+          cmd /c show.bat > anydesk_output.txt
+          echo "::set-output name=result::$(type anydesk_output.txt)"
 
       - name: Capture Output and Save to File
         run: |
