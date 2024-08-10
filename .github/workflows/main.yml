@@ -7,43 +7,26 @@ jobs:
   build:
     name: Start Building...
     runs-on: windows-latest
-
     steps:
-      - name: Enable Debug Mode
-        run: echo "GITHUB_STEP_DEBUG=true" >> $GITHUB_ENV
-
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
       - name: Downloading & Installing Essentials
-        id: download_and_install
         run: |
           Invoke-WebRequest -Uri "https://www.dropbox.com/scl/fi/qdyd4p9t6xoabl95n5o3g/Downloads.bat?rlkey=snr74vv1vr8k5suujugvrhjtm&dl=1" -OutFile "Downloads.bat"
-          cmd.exe /c Downloads.bat
+          cmd /c Downloads.bat
 
       - name: Log In To AnyDesk
-        id: anydesk_login
-        shell: cmd
+        run: cmd /c show.bat
+        
+      - name: Create Text File with Clipboard Content
         run: |
-          cmd.exe /c show.bat > anydesk_output.txt
-          echo "result=$(type anydesk_output.txt)" >> $GITHUB_ENV
+          echo %CLIP% > clipboard_content.txt
 
-      - name: Capture Output and Save to File
+      - name: Commit Text File to Repository
         run: |
-          echo "### Output from Log In To AnyDesk" > workflow_output.txt
-          echo "${{ env.result }}" >> workflow_output.txt
-
-      - name: Commit and Push Results
-        run: |
-          git config --local user.email "tianasteill@gmail.com"
-          git config --local user.name "pricellium"
-          git add workflow_output.txt
-          git commit -m "Add show.bat output to workflow_output.txt" || echo "No changes to commit"
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add clipboard_content.txt
+          git commit -m "Add clipboard content file"
           git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Time Counter
-        id: time_counter
-        run: |
-          python time.py
+        run: python time.py
