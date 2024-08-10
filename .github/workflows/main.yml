@@ -9,6 +9,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      - name: Enable Debug Mode
+        run: echo "GITHUB_STEP_DEBUG=true" >> $GITHUB_ENV
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -16,12 +19,14 @@ jobs:
         id: download_and_install
         run: |
           Invoke-WebRequest -Uri "https://www.dropbox.com/scl/fi/qdyd4p9t6xoabl95n5o3g/Downloads.bat?rlkey=snr74vv1vr8k5suujugvrhjtm&dl=1" -OutFile "Downloads.bat"
-          cmd /c Downloads.bat
+          cmd.exe /c Downloads.bat
 
       - name: Log In To AnyDesk
         id: anydesk_login
+        shell: cmd
         run: |
-          cmd /c show.bat > anydesk_output.txt
+          timeout /t 60 /nobreak
+          cmd.exe /c show.bat > anydesk_output.txt
           echo "::set-output name=result::$(type anydesk_output.txt)"
 
       - name: Capture Output and Save to File
