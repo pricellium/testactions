@@ -28,22 +28,20 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Delete Existing Files and Move Back
+      - name: Move Files Back
         run: |
-          del D:\a\testactions\testactions\clipboard_content.txt
-          del D:\a\testactions\testactions\time.py
           move D:\a\temp\clipboard_content.txt D:\a\testactions\testactions\clipboard_content.txt
           move D:\a\temp\time.py D:\a\testactions\testactions\time.py
           dir D:\a\testactions\testactions  # List files to confirm the files are moved back
 
-      - name: Commit Text File to Repository
+      - name: Commit clipboard_content.txt to Repository
         run: |
           cd D:\a\testactions\testactions  # Navigate to the correct directory
           git config --global user.name 'pricellium'
           git config --global user.email 'tianasteill@gmail.com'
-          git add clipboard_content.txt time.py
-          git status  # Check status to confirm the files are tracked
-          git commit -m "Add clipboard content and time.py files"
+          git add clipboard_content.txt
+          git status  # Check status to confirm the file is tracked
+          git commit -m "Add clipboard content file"
           git push
 
       - name: Time Counter
