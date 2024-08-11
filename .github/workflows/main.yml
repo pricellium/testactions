@@ -18,8 +18,9 @@ jobs:
           cmd /c show.bat
           dir
 
-      - name: Move clipboard_content.txt to Temporary Location
+      - name: Create Temporary Directory and Move clipboard_content.txt
         run: |
+          mkdir D:\a\temp  # Create the temporary directory
           move D:\a\testactions\testactions\clipboard_content.txt D:\a\temp\clipboard_content.txt
           dir D:\a\temp  # List files in the temporary location to confirm move
 
