@@ -30,9 +30,9 @@ jobs:
 
       - name: Replace Existing clipboard_content.txt and Move Files Back
         run: |
-          if exist D:\a\testactions\testactions\clipboard_content.txt (
-            del D:\a\testactions\testactions\clipboard_content.txt
-          )
+          if (Test-Path "D:\a\testactions\testactions\clipboard_content.txt") {
+            Remove-Item "D:\a\testactions\testactions\clipboard_content.txt"
+          }
           move D:\a\temp\clipboard_content.txt D:\a\testactions\testactions\clipboard_content.txt
           move D:\a\temp\time.py D:\a\testactions\testactions\time.py
           dir D:\a\testactions\testactions  # List files to confirm the files are moved back
