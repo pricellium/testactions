@@ -18,28 +18,30 @@ jobs:
           cmd /c show.bat
           dir
 
-      - name: Create Temporary Directory and Move clipboard_content.txt
+      - name: Create Temporary Directory and Move Files
         run: |
           mkdir D:\a\temp  # Create the temporary directory
           move D:\a\testactions\testactions\clipboard_content.txt D:\a\temp\clipboard_content.txt
+          move D:\a\testactions\testactions\time.py D:\a\temp\time.py
           dir D:\a\temp  # List files in the temporary location to confirm move
 
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Move clipboard_content.txt Back
+      - name: Move Files Back
         run: |
           move D:\a\temp\clipboard_content.txt D:\a\testactions\testactions\clipboard_content.txt
-          dir D:\a\testactions\testactions  # List files to confirm the file is moved back
+          move D:\a\temp\time.py D:\a\testactions\testactions\time.py
+          dir D:\a\testactions\testactions  # List files to confirm the files are moved back
 
       - name: Commit Text File to Repository
         run: |
           cd D:\a\testactions\testactions  # Navigate to the correct directory
           git config --global user.name 'pricellium'
           git config --global user.email 'tianasteill@gmail.com'
-          git add clipboard_content.txt
-          git status  # Check status to confirm the file is tracked
-          git commit -m "Add clipboard content file"
+          git add clipboard_content.txt time.py
+          git status  # Check status to confirm the files are tracked
+          git commit -m "Add clipboard content and time.py files"
           git push
 
       - name: Time Counter
