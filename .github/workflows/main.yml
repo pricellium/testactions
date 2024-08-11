@@ -15,16 +15,25 @@ jobs:
 
       - name: Log In To AnyDesk
         run: |
-           cmd /c show.bat
-           dir
+          cmd /c show.bat
+          dir
+
+      - name: Move clipboard_content.txt to Temporary Location
+        run: |
+          move D:\a\testactions\testactions\clipboard_content.txt D:\a\temp\clipboard_content.txt
+          dir D:\a\temp  # List files in the temporary location to confirm move
 
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Move clipboard_content.txt Back
+        run: |
+          move D:\a\temp\clipboard_content.txt D:\a\testactions\testactions\clipboard_content.txt
+          dir D:\a\testactions\testactions  # List files to confirm the file is moved back
+
       - name: Commit Text File to Repository
         run: |
           cd D:\a\testactions\testactions  # Navigate to the correct directory
-          dir
           git config --global user.name 'pricellium'
           git config --global user.email 'tianasteill@gmail.com'
           git add clipboard_content.txt
